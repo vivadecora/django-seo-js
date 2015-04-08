@@ -4,7 +4,8 @@ from httmock import all_requests, HTTMock
 from django_seo_js.tests.utils import override_settings
 from django_seo_js.backends import PrerenderIO
 
-MOCK_RESPONSE = "<html><body><h1>Hello, World!</h1></body></html>"
+
+MOCK_RESPONSE = b'<html><body><h1>Hello, World!</h1></body></html>'
 MOCK_RESPONSE_HEADERS = {"foo": "bar"}
 MOCK_RECACHE_RESPONSE = "OK"
 MOCK_RECACHE_HEADERS = {"ibbity": "ack"}
@@ -29,7 +30,6 @@ def mock_prerender_response(url, request):
 
 
 class PrerenderIOTestToken(TestCase):
-
     @override_settings(PRERENDER_TOKEN=None)
     def test_get_token_throws_exception_if_missing(self):
         self.assertRaises(ValueError, PrerenderIO)
@@ -44,7 +44,6 @@ class PrerenderIOTestToken(TestCase):
 
 
 class PrerenderIOTestMethods(TestCase):
-
     def setUp(self):
         self.backend = PrerenderIO()
 

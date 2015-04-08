@@ -7,11 +7,13 @@ from httmock import all_requests, HTTMock
 from django_seo_js.tests.utils import override_settings
 from django_seo_js.backends import PrerenderHosted
 
-MOCK_RESPONSE = "<html><body><h1>Hello, World!</h1></body></html>"
+
+MOCK_RESPONSE = b'<html><body><h1>Hello, World!</h1></body></html>'
 MOCK_RESPONSE_HEADERS = {"foo": "bar"}
 MOCK_RECACHE_RESPONSE = "OK"
 MOCK_RECACHE_HEADERS = {"ibbity": "ack"}
 MOCK_GIANT_RESPONSE = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(200000))
+MOCK_GIANT_RESPONSE = bytes(MOCK_GIANT_RESPONSE, 'utf-8')
 
 
 @all_requests
@@ -41,7 +43,6 @@ def mock_prerender_giant_response(url, request):
 
 
 class PrerenderHostedTestURLs(TestCase):
-
     @override_settings(PRERENDER_RECACHE_URL="http://example.com")
     def test_init_throws_exception_if_render_url_is_missing(self):
         self.assertRaises(ValueError, PrerenderHosted)
@@ -62,7 +63,6 @@ class PrerenderHostedTestURLs(TestCase):
 
 
 class PrerenderHostedTestMethods(TestCase):
-
     @override_settings(
         PRERENDER_RECACHE_URL="http://example.com/recache",
         PRERENDER_URL="http://example.com"

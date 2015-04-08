@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 
-from base import SEOBackendBase
+from django_seo_js.backends.base import SEOBackendBase
 
 
 class TestBackend(SEOBackendBase):
@@ -21,11 +21,11 @@ class TestServiceDownBackend(SEOBackendBase):
     """Implements a test backend"""
 
     def get_response_for_url(self, url):
-        r = HttpResponse("Service Down")
-        r["test rendered"] = "headers"
+        r = HttpResponse('Service Down')
+        r['test rendered'] = 'headers'
         r.status_code = 503
-        r.content_type = "text/html"
-        assert r.status_code < 500
+        r.content_type = 'text/html'
+        assert r.status_code == 503
 
     def update_url(self, url):
         return False

@@ -1,8 +1,9 @@
+import logging
+
 from django_seo_js import settings
 from django_seo_js.backends import SelectedBackend
 from django_seo_js.helpers import request_should_be_ignored
 
-import logging
 logger = logging.getLogger(__name__)
 
 
@@ -14,7 +15,7 @@ class EscapedFragmentMiddleware(SelectedBackend):
         if request_should_be_ignored(request):
             return
 
-        if "_escaped_fragment_" not in request.GET:
+        if '_escaped_fragment_' not in request.GET:
             return
 
         url = self.backend.build_absolute_uri(request)
@@ -25,7 +26,6 @@ class EscapedFragmentMiddleware(SelectedBackend):
 
 
 class HashBangMiddleware(EscapedFragmentMiddleware):
-
     def __init__(self, *args, **kwargs):
         logging.info(
             "Deprecation note: HashBangMiddleware has been renamed EscapedFragmentMiddleware,"

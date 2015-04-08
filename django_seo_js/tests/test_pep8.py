@@ -1,14 +1,14 @@
 import unittest
 import os
+
 import pep8
 
 
 class TestCodeFormat(unittest.TestCase):
-
     def test_pep8_conformance(self):
         """Test that we conform to PEP8."""
         ALL_FILES = []
-        IGNORED_CODES = ["E501", "E226", "E302", "E41", "E128", "E127", ]
+        IGNORED_CODES = ['E501', 'E226', 'E302', 'E41', 'E128', 'E127', ]
 
         project_root = os.path.abspath(os.path.join(
             os.path.dirname(os.path.realpath(__file__)),
@@ -16,10 +16,9 @@ class TestCodeFormat(unittest.TestCase):
             "..",
         ))
         ignored_folders = [
-            ".git",
-            "venv",
+            '.git',
+            'venv',
         ]
-
         pep8style = pep8.StyleGuide(
             # quiet=True,
             report=pep8.StandardReport,
@@ -36,4 +35,5 @@ class TestCodeFormat(unittest.TestCase):
                         ALL_FILES.append(os.path.join(root, filename))
         result = pep8style.check_files(ALL_FILES)
 
-        self.assertEqual(result.total_errors, 0, "Found %s code style errors (and warnings)." % (result.total_errors,))
+        self.assertEqual(result.total_errors, 0,
+                         u'Found {0} code style errors (and warnings).'.format(result.total_errors))
